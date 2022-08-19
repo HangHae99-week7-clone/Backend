@@ -6,11 +6,11 @@ const cookieParser = require("cookie-parser");
 
 const RoutesUser = require("./routes/users");
 const RoutesPost = require("./routes/posts");
-const RoutesComment = require("./routes/reviews");
+const RoutesReview = require("./routes/reviews");
 const rotuer = require("./routes");
 const { sequelize } = require("./models");
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })
