@@ -1,35 +1,60 @@
-"use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Post.init(
-    {
-      postId: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER,
+const Sequelize = require("sequelize");
+
+module.exports = class Post extends Sequelize.Model {
+  static init(sequelize) {
+    return super.init(
+      {
+        postId: {
+          type: Sequelize.INTEGER,
+          primaryKey: true, // id 이름 postId로 설정.
+          autoIncrement: true,
+        },
+        nickname: {
+          type: Sequelize.STRING(15),
+          allowNull: false,
+        },
+        placename: {
+          type: Sequelize.STRING(50),
+          allowNull: false,
+        },
+        content: {
+          type: Sequelize.TEXT,
+          allowNull: false,
+        },
+        charge: {
+          type: Sequelize.INTEGER,
+          defaultValue: 0,
+          allowNull: true,
+        },
+        location: {
+          type: Sequelize.STRING(15),
+          allowNull: false,
+        },
+        images: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
       },
-      title: DataTypes.STRING,
-      content: DataTypes.STRING,
-      email: DataTypes.STRING,
-      userName: DataTypes.STRING,
-      like: DataTypes.INTEGER,
-      Images: DataTypes.STRING,
-    },
-    {
-      sequelize,
-      modelName: "Post",
-    }
-  );
-  return Post;
+      {
+        sequelize,
+        timestamps: true,
+        underscored: false,
+        modelName: "Post",
+        tableName: "posts",
+        paranoid: false,
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
+      }
+    );
+  }
+
+  static associate(db) {
+    db.Post.hasMany(db.Review, { foreignKey: "postId", sourceKey: "postId" });
+    db.Post.hasMany(db.Keyword, { foreignKey: "postId", sourceKey: "postId" });
+    db.Post.belongsTo(db.User, {
+      foreignKey: "userId",
+      targetKey: "userId",
+      onDelete: "CASCADE",
+    });
+  }
 };
