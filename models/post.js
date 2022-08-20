@@ -26,6 +26,10 @@ module.exports = class Post extends Sequelize.Model {
           defaultValue: 0,
           allowNull: true,
         },
+        category: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         location: {
           type: Sequelize.STRING(15),
           allowNull: false,
