@@ -11,7 +11,6 @@ class LoginController {
 
       res.status(200).json(token);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };

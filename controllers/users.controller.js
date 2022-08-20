@@ -17,7 +17,6 @@ class UserController {
 
       res.status(201).json(createUser);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
@@ -35,7 +34,6 @@ class UserController {
 
       res.status(200).json(changeNick);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
@@ -50,7 +48,6 @@ class UserController {
 
       res.status(200).json(deleteUser);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
