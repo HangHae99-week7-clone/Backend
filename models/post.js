@@ -6,7 +6,7 @@ module.exports = class Post extends Sequelize.Model {
       {
         postId: {
           type: Sequelize.INTEGER,
-          primaryKey: true, // id 이름 postId로 설정.
+          primaryKey: true,
           autoIncrement: true,
         },
         nickname: {
@@ -26,6 +26,10 @@ module.exports = class Post extends Sequelize.Model {
           defaultValue: 0,
           allowNull: true,
         },
+        category: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         location: {
           type: Sequelize.STRING(15),
           allowNull: false,
@@ -33,6 +37,10 @@ module.exports = class Post extends Sequelize.Model {
         images: {
           type: Sequelize.STRING,
           allowNull: false,
+        },
+        message: {
+          type: Sequelize.STRING,
+          allowNull: true,
         },
       },
       {
@@ -51,6 +59,18 @@ module.exports = class Post extends Sequelize.Model {
   static associate(db) {
     db.Post.hasMany(db.Review, { foreignKey: "postId", sourceKey: "postId" });
     db.Post.hasMany(db.Keyword, { foreignKey: "postId", sourceKey: "postId" });
+    db.Post.hasMany(db.Roomtitle, {
+      foreignKey: "postId",
+      sourceKey: "postId",
+    });
+    db.Post.hasMany(db.Roomcharge, {
+      foreignKey: "postId",
+      sourceKey: "postId",
+    });
+    db.Post.hasMany(db.Roomimage, {
+      foreignKey: "postId",
+      sourceKey: "postId",
+    });
     db.Post.belongsTo(db.User, {
       foreignKey: "userId",
       targetKey: "userId",

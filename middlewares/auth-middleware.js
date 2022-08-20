@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
-  console.log("토큰!!!", token);
+
   if (!token) {
     res.status(401).json({ result: false, error: "로그인이 필요합니다1." });
 
@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
 
     User.findByPk(userId).then((user) => {
       res.locals.user = user;
+
       next();
     });
   } catch (error) {

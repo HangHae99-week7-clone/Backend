@@ -18,6 +18,7 @@ class LoginService {
           process.env.MYSQL_KEY,
           { expiresIn: "1d" }
         );
+
         return token;
       } else {
         return {

@@ -5,8 +5,9 @@ class LoginRepository {
     const existUserData = await User.findOne({
       where: { email },
     });
+
     return existUserData;
-  }
+  };
 }
 
 module.exports = LoginRepository;
