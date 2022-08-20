@@ -22,6 +22,7 @@ class PostService {
   };
   getPost = async (postId) => {
     const post = await this.postRepository.getPost(postId);
+
     return post;
   };
   createPost = async (
@@ -32,7 +33,8 @@ class PostService {
     location,
     images,
     nickname,
-    userId
+    userId,
+    message
   ) => {
     const post = await this.postRepository.createPost(
       placename,
@@ -42,7 +44,8 @@ class PostService {
       location,
       images,
       nickname,
-      userId
+      userId,
+      message
     );
     return post;
   };
@@ -53,25 +56,35 @@ class PostService {
     charge,
     content,
     images,
-    location
+    location,
+    message
   ) => {
+    console.log("돼라고@@@@@@@@@@@@@@@@@@@@@@@@@");
     const post = await this.postRepository.updatePost(
+      postId,
       placename,
       postId,
       category,
       charge,
       content,
       images,
-      location
+      location,
+      message
     );
+    return post;
   };
   deletePost = async (postId) => {
     const post = await this.postRepository.deletePost(postId);
     return post;
   };
-  searchPost = async (location) => {
-    const post = await this.postRepository.searchPost(location);
-    return post;
+  searchPost = async (keyword) => {
+    const post = await this.postRepository.searchPost(keyword);
+    let postarray = [];
+    for (let i = 0; i < post.length; i++) {
+      var searchpost = await this.postRepository.getPost(post[i].postId);
+      postarray.push(searchpost);
+    }
+    return postarray;
   };
 }
 module.exports = PostService;

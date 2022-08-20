@@ -5,7 +5,7 @@ class LoginRepository {
     const existUserData = await User.findOne({
       where: { email },
     });
-    console.log("existUser", existUserData);
+
     return existUserData;
   };
 }

@@ -12,13 +12,11 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    console.log("키", process.env.MYSQL_KEY);
-    console.log("토큰", token);
-
     const { userId } = jwt.verify(token, process.env.MYSQL_KEY); // userId 는 jwt.sign(userId : user._id)의 user._id가 할당된다.
 
     User.findByPk(userId).then((user) => {
       res.locals.user = user;
+
       next();
     });
   } catch (error) {

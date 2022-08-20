@@ -9,7 +9,7 @@ class LoginService {
 
   loginUser = async (email, password) => {
     const user = await this.loginRepository.findUser(email);
-    console.log("유저", user);
+
     if (user) {
       const compareResult = await bcrypt.compare(password, user.password);
       if (compareResult) {

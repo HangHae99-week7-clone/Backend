@@ -1,16 +1,17 @@
 const Sequelize = require("sequelize");
 
-module.exports = class Keyword extends Sequelize.Model {
+module.exports = class Roomimage extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        keywordId: {
+        imageId: {
           type: Sequelize.INTEGER,
-          primaryKey: true, // id 이름 userId로 설정.
+          primaryKey: true,
           autoIncrement: true,
         },
-        keyword: {
-          type: Sequelize.STRING(40),
+
+        image: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
       },
@@ -18,17 +19,17 @@ module.exports = class Keyword extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: false,
-        modelName: "Keyword",
-        tableName: "keywords",
+        modelName: "Roomimage",
+        tableName: "roomimages",
         paranoid: false,
-        charset: "utf8",
-        collate: "utf8_general_ci",
+        charset: "utf8mb4",
+        collate: "utf8mb4_general_ci",
       }
     );
   }
 
   static associate(db) {
-    db.Keyword.belongsTo(db.Post, {
+    db.Roomimage.belongsTo(db.Post, {
       foreignKey: "postId",
       targetKey: "postId",
       onDelete: "CASCADE",
