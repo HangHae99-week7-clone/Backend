@@ -9,7 +9,7 @@ class LoginController {
       const { email, password } = req.body;
       const token = await this.loginService.loginUser(email, password);
 
-      res.status(200).json(token);
+      res.json(token);
     } catch (err) {
       return next(err);
     }
