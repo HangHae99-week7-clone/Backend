@@ -1,14 +1,14 @@
 const User = require("../models/user");
 
 class UserRepository {
-  existUserEmail = async (email) => {
+  findUserByEmail = async (email) => {
     const existUserEmail = await User.findOne({
       where: { email },
     });
     return existUserEmail;
   };
 
-  existUserNick = async (nickname) => {
+  findUserByNick = async (nickname) => {
     const existUserNick = await User.findOne({
       where: { nickname },
     });
@@ -22,6 +22,19 @@ class UserRepository {
       password: hash,
     });
     return createUserData;
+  };
+
+  updateNick = async (nickname, nicknamechange) => {
+    const updateNickData = await User.update(
+      { nickname: nicknamechange },
+      { where: { nickname } }
+    );
+    return updateNickData;
+  };
+
+  deleteUser = async (nickname) => {
+    const deleteNickData = await User.destroy({ where: { nickname } });
+    return deleteNickData;
   };
 }
 
