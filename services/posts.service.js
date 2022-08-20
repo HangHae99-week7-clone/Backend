@@ -31,7 +31,8 @@ class PostService {
     charge,
     location,
     images,
-    nickname
+    nickname,
+    userId
   ) => {
     const post = await this.postRepository.createPost(
       placename,
@@ -40,7 +41,8 @@ class PostService {
       charge,
       location,
       images,
-      nickname
+      nickname,
+      userId
     );
     return post;
   };

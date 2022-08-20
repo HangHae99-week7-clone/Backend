@@ -6,7 +6,7 @@ class PostController {
     const { location } = req.query;
 
     const searchPost = await this.postService.searchPost(location);
-    res.status(200).json(searchPost);
+    res.status(200).json({ Result: searchPost });
   };
   getAllPosts = async (req, res, next) => {
     const posts = await this.postService.getAllPosts();
@@ -14,16 +14,9 @@ class PostController {
   };
   createPost = async (req, res, next) => {
     const { user } = res.locals;
-    const {
-      placename,
-      category,
-      content,
-      charge,
-      keyword,
-      location,
-      images,
-      nickname,
-    } = req.body;
+    console.log("유저", user);
+    const { placename, category, content, charge, keyword, location, images } =
+      req.body;
 
     const createPost = await this.postService.createPost(
       placename,
@@ -32,7 +25,8 @@ class PostController {
       charge,
       location,
       images,
-      nickname
+      user.nickname,
+      user.id
     );
     if (!createPost) {
       res

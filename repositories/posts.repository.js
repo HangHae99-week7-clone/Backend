@@ -16,7 +16,8 @@ class postRepository {
     charge,
     location,
     images,
-    nickname
+    nickname,
+    userId
   ) => {
     const post = await Post.create({
       placename,
@@ -26,6 +27,7 @@ class postRepository {
       location,
       images,
       nickname,
+      userId,
     });
     return post;
   };
