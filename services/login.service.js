@@ -14,7 +14,7 @@ class LoginService {
       const compareResult = await bcrypt.compare(password, user.password);
       if (compareResult) {
         const token = jwt.sign(
-          { email: user.email, nickname: user.nickname },
+          { email: user.email, nickname: user.nickname, userId: user.userId },
           process.env.MYSQL_KEY,
           { expiresIn: "1d" }
         );
