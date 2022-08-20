@@ -39,6 +39,7 @@ class ReviewController {
     }
   };
 
+  // 리뷰 삭제 [DELETE] /review/:reviewId
   deleteReview = async (req, res, next) => {
     try {
       const { reviewId } = req.params;
