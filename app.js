@@ -1,14 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-const port = 3000;
-const cookieParser = require("cookie-parser");
-
-const RoutesUser = require("./routes/users");
-const RoutesPost = require("./routes/posts");
-const RoutesReview = require("./routes/reviews");
-const rotuer = require("./routes");
 const { sequelize } = require("./models");
+const morgan = require("morgan");
+const rotuer = require("./routes");
+const port = 3000;
+const app = express();
+
 sequelize
   .sync({ force: false })
   .then(() => {
@@ -17,20 +14,36 @@ sequelize
   .catch((err) => {
     console.log(err);
   });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined"));
+} else {
+  app.use(morgan("dev"));
+}
 /*app.use(
   cors({
     credentials: true,
     origin: "http://hanghae99-s8week6.s3-website.ap-northeast-2.amazonaws.com",
   })
 );*/
-//app.use(cookieParser());
-app.use(express.urlencoded());
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // body로 들어오는 json 형태의 데이터를 파싱해준다.
 app.use("/api", rotuer);
-// app.use("/api", [RoutesLogin, RoutesUser, RoutesPost, RoutesComment]);
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+// error 미들웨어
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  res.locals.error = process.env.NODE_ENV !== "production" ? err : {}; // 개발 모드에선 err 상세내역 보이게, 아닐 땐 {} 빈값으로.
+  res.status(err.status || 500).json({
+    error: "에러 미들웨어에 오셨군요",
+  });
+});
+
 app.listen(port, () => {
   console.log(port, "포트로 서버가 열렸어요!");
 });

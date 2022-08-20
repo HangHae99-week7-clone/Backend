@@ -5,4 +5,7 @@ const Users = require("./users");
 
 const router = express.Router();
 
+router.use("/user", Users);
+router.unlock("/review", Reviews);
+
 module.exports = router;
