@@ -15,11 +15,40 @@ class UserController {
         confirm
       );
 
-      if (createUser.error) {
-        return res.status(400).json(createUser);
-      }
+      res.status(201).json(createUser);
+    } catch (err) {
+      console.log(err);
+      return next(err);
+    }
+  };
 
-      res.status(201).json({ result: true, email, nickname });
+  // 닉네임 변경 [PUT] /user/nicknamechange
+  changeNick = async (req, res, next) => {
+    try {
+      const { nickname } = res.locals.user;
+      const { nicknamechange } = req.body;
+
+      const changeNick = await this.userService.changeNick(
+        nickname,
+        nicknamechange
+      );
+
+      res.status(200).json(changeNick);
+    } catch (err) {
+      console.log(err);
+      return next(err);
+    }
+  };
+
+  // 회원탈퇴 [DELETE] /user/delete
+  deleteUser = async (req, res, next) => {
+    try {
+      const { nickname } = res.locals.user;
+      const { password } = req.body;
+
+      const deleteUser = await this.userService.deleteUser(nickname, password);
+
+      res.status(200).json(deleteUser);
     } catch (err) {
       console.log(err);
       return next(err);

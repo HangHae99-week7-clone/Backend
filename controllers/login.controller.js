@@ -3,6 +3,7 @@ const LoginService = require("../services/login.service");
 class LoginController {
   loginService = new LoginService();
 
+  // 로그인 [POST] /user/login
   loginUser = async (req, res, next) => {
     try {
       const { email, password } = req.body;
