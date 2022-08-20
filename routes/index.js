@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.use("/", [Posts]);
 router.use("/user", Users);
-router.unlock("/review", Reviews);
+router.use("/review", Reviews);
+
 module.exports = router;
