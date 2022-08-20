@@ -1,13 +1,24 @@
 const UserRepository = require("../repositories/users.repository");
 const bcrypt = require("bcrypt");
-const { route } = require("../routes");
-require("dotenv").config();
 
 class UserService {
   userRepository = new UserRepository();
 
   // 회원가입
   createUser = async (email, nickname, password, confirm) => {
+    const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    const passwordFormat =
+      /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?=[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,}$/;
+
+    if (!emailFormat.test(email)) {
+      return { result: false, error: "이메일 형식이 올바르지 않습니다" };
+    }
+    if (!passwordFormat.test(password)) {
+      return { result: false, error: "패스워드 형식이 올바르지 않습니다" };
+    }
+    if (password.search(nickname) !== -1) {
+      return { result: false, error: "패스워드에 닉네임이 포함되어 있습니다" };
+    }
     if (password !== confirm) {
       return { result: false, error: "패스워드가 일치하지 않습니다" };
     }
@@ -20,9 +31,9 @@ class UserService {
       return { result: false, error: "닉네임이 이미 존재합니다" };
     }
 
-    const hash = await bcrypt.hash(password, 12);
+    const hash = bcrypt.hashSync(password, Number(process.env.SALT));
     await this.userRepository.createUser(email, nickname, hash);
-    return { result: true, email, nickname };
+    return { result: true };
   };
 
   changeNick = async (nickname, nicknamechange) => {
