@@ -59,7 +59,6 @@ class PostService {
     location,
     message
   ) => {
-    console.log("돼라고@@@@@@@@@@@@@@@@@@@@@@@@@");
     const post = await this.postRepository.updatePost(
       postId,
       placename,
