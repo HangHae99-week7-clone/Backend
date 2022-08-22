@@ -1,6 +1,11 @@
 const { User } = require("../models");
 
 class UserRepository {
+  findUser = async (userId) => {
+    const user = await User.findByPk(userId);
+    return user;
+  };
+
   findUserByEmail = async (email) => {
     const existUserEmail = await User.findOne({
       where: { email },
@@ -32,8 +37,8 @@ class UserRepository {
     return updateNickData;
   };
 
-  deleteUser = async (nickname) => {
-    const deleteNickData = await User.destroy({ where: { nickname } });
+  deleteUser = async (userId) => {
+    const deleteNickData = await User.destroy({ where: { userId } });
     return deleteNickData;
   };
 }
