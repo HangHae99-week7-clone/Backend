@@ -8,7 +8,9 @@ class PostController {
   searchPost = async (req, res, next) => {
     const { keyword } = req.query;
 
-    const searchPost = await this.postService.searchPost(keyword);
+    let arr_keyword = keyword.toString().split(" ");
+
+    const searchPost = await this.postService.searchPost(arr_keyword);
     res.status(200).json({ Result: searchPost });
   };
   getAllPosts = async (req, res, next) => {
