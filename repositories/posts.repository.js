@@ -1,4 +1,4 @@
-const { Post } = require("../models");
+const { Post, Review } = require("../models");
 const { Keyword } = require("../models");
 const { Roomtitle } = require("../models");
 const { Roomcharge } = require("../models");
@@ -10,7 +10,10 @@ class postRepository {
   };
 
   getPost = async (postId) => {
-    const post = await Post.findOne({ where: { postId } });
+    const post = await Post.findOne({
+      where: { postId },
+      include: [{ model: Review }],
+    });
     const roomtitle = await Roomtitle.findAll({ where: { postId } });
     const roomcharge = await Roomcharge.findAll({ where: { postId } });
     const roomimage = await Roomimage.findAll({ where: { postId } });
@@ -46,6 +49,7 @@ class postRepository {
       roomtitle: arr_title,
       roomcharge: arr_charge,
       roomimage: arr_image,
+      review: post.Reviews,
     };
   };
   createPost = async (
