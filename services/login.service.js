@@ -1,5 +1,4 @@
 const LoginRepository = require("../repositories/login.repository");
-const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -18,18 +17,22 @@ class LoginService {
           process.env.MYSQL_KEY,
           { expiresIn: "1d" }
         );
-
-        return token;
+        return {
+          result: true,
+          token,
+          email: user.email,
+          nickname: user.nickname,
+        };
       } else {
         return {
           result: false,
-          error: "이메일 또는 패스워드가 틀렸습니다",
+          error: "이메일 또는 패스워드가 올바르지 않습니다",
         };
       }
     } else {
       return {
         result: false,
-        error: "이메일 또는 패스워드가 틀렸습니다",
+        error: "이메일 또는 패스워드가 올바르지 않습니다",
       };
     }
   };

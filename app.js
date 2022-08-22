@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const rotuer = require("./routes");
 const port = 3000;
 const app = express();
+require("dotenv").config();
 
 sequelize
   .sync({ force: false })
@@ -37,8 +38,7 @@ app.get("/", (req, res) => {
 
 // error 미들웨어
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = process.env.NODE_ENV !== "production" ? err : {}; // 개발 모드에선 err 상세내역 보이게, 아닐 땐 {} 빈값으로.
+  console.log(err);
   res.status(err.status || 500).json({
     error: "에러 미들웨어에 오셨군요",
   });
