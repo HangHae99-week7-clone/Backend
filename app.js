@@ -21,12 +21,12 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(morgan("dev"));
 }
-/*app.use(
+app.use(
   cors({
     credentials: true,
-    origin: "http://hanghae99-s8week6.s3-website.ap-northeast-2.amazonaws.com",
+    origin: "http://localhost:3000",
   })
-);*/
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // body로 들어오는 json 형태의 데이터를 파싱해준다.
