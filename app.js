@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
     error: "에러 미들웨어에 오셨군요",
   });
 });
-
+app.use(express.static("public"));
 app.listen(port, () => {
   console.log(port, "포트로 서버가 열렸어요!");
 });
