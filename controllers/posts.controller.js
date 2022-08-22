@@ -42,7 +42,7 @@ class PostController {
       location,
       images,
       user.nickname,
-      user.id,
+      user.userId,
       message
     );
     let arr_keyword = keyword.toString().split(" ");
