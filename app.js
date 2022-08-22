@@ -47,11 +47,11 @@ app.get("/", (req, res) => {
 });
 
 // error 미들웨어
-app.use((err, req, res, next) => {
+/*app.use((err, req, res, next) => {
   console.log(err);
   res.status(err.status || 500).json({
     error: "에러 미들웨어에 오셨군요",
   });
-});
+});*/
 
 module.exports = app;
