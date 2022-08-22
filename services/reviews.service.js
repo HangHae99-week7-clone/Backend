@@ -11,7 +11,8 @@ class ReviewController {
       comment,
       rating
     );
-    return { result: true };
+    const reviews = await this.reviewRepository.getReviews(postId);
+    return { result: true, reviews };
   };
 
   updateReview = async (reviewId, userId, nickname, comment, rating) => {
