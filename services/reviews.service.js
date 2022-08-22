@@ -3,14 +3,21 @@ const ReviewRepository = require("../repositories/reviews.repository");
 class ReviewController {
   reviewRepository = new ReviewRepository();
 
-  createReview = async (nickname, comment, rating) => {
-    await this.reviewRepository.createReview(nickname, comment, rating);
+  createReview = async (postId, userId, nickname, comment, rating) => {
+    await this.reviewRepository.createReview(
+      postId,
+      userId,
+      nickname,
+      comment,
+      rating
+    );
+    return { result: true };
   };
 
-  updateReview = async (reviewId, nickname, comment, rating) => {
+  updateReview = async (reviewId, userId, nickname, comment, rating) => {
     const review = await this.reviewRepository.findReview(reviewId);
 
-    if (nickname === review.nickname) {
+    if (nickname === review.nickname && nickname === review.userId) {
       return { result: false, error: "본인 리뷰만 수정 가능합니다" };
     }
 

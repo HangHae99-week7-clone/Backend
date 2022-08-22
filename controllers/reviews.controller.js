@@ -6,9 +6,12 @@ class ReviewController {
   // 리뷰 등록 [POST] /review/:postId
   createReview = async (req, res, next) => {
     try {
-      const { nickname } = res.locals.user;
+      const { postId } = req.params;
+      const { userId, nickname } = res.locals.user;
       const { comment, rating } = req.body;
       const createReview = await this.reviewService.createReview(
+        postId,
+        userId,
         nickname,
         comment,
         rating
@@ -24,10 +27,11 @@ class ReviewController {
   updateReview = async (req, res, next) => {
     try {
       const { reviewId } = req.params;
-      const { nickname } = res.locals.user;
+      const { userId, nickname } = res.locals.user;
       const { comment, rating } = req.body;
       const updateReview = await this.reviewService.updateReview(
         reviewId,
+        userId,
         nickname,
         comment,
         rating
