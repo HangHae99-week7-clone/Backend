@@ -42,7 +42,7 @@ class postRepository {
       category: post.category,
       charge: post.charge,
       content: post.content,
-      image: post.image,
+      images: post.images,
       location: post.location,
       message: post.message,
       keyword: arr_keyword,
