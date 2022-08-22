@@ -15,9 +15,8 @@ class UserController {
         confirm
       );
 
-      res.status(201).json(createUser);
+      res.json(createUser);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
@@ -33,9 +32,8 @@ class UserController {
         nicknamechange
       );
 
-      res.status(200).json(changeNick);
+      res.json(changeNick);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
@@ -48,9 +46,8 @@ class UserController {
 
       const deleteUser = await this.userService.deleteUser(nickname, password);
 
-      res.status(200).json(deleteUser);
+      res.json(deleteUser);
     } catch (err) {
-      console.log(err);
       return next(err);
     }
   };
