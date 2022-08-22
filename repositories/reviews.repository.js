@@ -6,6 +6,11 @@ class ReviewRepository {
     return findWriterData;
   };
 
+  getReviews = async (postId) => {
+    const reviews = await Review.findAll({ where: { postId } });
+    return reviews;
+  };
+
   createReview = async (postId, userId, nickname, comment, rating) => {
     const createReviewData = await Review.create({
       postId,
