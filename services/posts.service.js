@@ -1,3 +1,4 @@
+const Post = require("../models/post");
 const postRepository = require("../repositories/posts.repository");
 
 class PostService {
@@ -76,11 +77,11 @@ class PostService {
     const post = await this.postRepository.deletePost(postId);
     return post;
   };
-  searchPost = async (keyword) => {
-    const post = await this.postRepository.searchPost(keyword);
+  searchPost = async (arr_keyword) => {
+    const post = await this.postRepository.searchPost(arr_keyword);
     let postarray = [];
     for (let i = 0; i < post.length; i++) {
-      var searchpost = await this.postRepository.getPost(post[i].postId);
+      let searchpost = await this.postRepository.getPost(post[i]);
       postarray.push(searchpost);
     }
     return postarray;

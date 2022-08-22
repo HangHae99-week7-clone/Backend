@@ -93,10 +93,45 @@ class postRepository {
 
     return post;
   };
-  searchPost = async (keyword) => {
-    const post = await Keyword.findAll({ where: { keyword: keyword } });
 
-    return post;
+  searchPost = async (arr_keyword) => {
+    let post;
+    let array1 = [];
+    let array2 = [];
+    let array3 = [];
+    let array4 = [];
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    //arr_keyword = [조식제공 야외수영장]
+    for (let i = 0; i < arr_keyword.length; i++) {
+      // 2번 반복하는데 findAll했을 때 1개 밖에 안나와서 인덱스 오류
+      post = await Keyword.findAll({
+        where: { keyword: arr_keyword[i] },
+      });
+
+      array1.push(post);
+    }
+
+    for (let i = 0; i < array1.length; i++) {
+      for (let j = 0; j < array1[i].length; j++) {
+        if (i == 0) {
+          array2.push(array1[i][j].postId);
+        } else if (i == 1) {
+          array3.push(array1[i][j].postId);
+        }
+      }
+    }
+    if (!array3.length) {
+      return array2;
+    }
+
+    for (let i = 0; i < array2.length; i++) {
+      if (array3.includes(array2[i])) {
+        array4.push(array2[i]);
+      }
+    }
+    return array4;
   };
 }
 module.exports = postRepository;
