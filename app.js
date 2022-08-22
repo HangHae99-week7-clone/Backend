@@ -58,6 +58,7 @@ app.use((err, req, res, next) => {
   console.log(err);
   res.status(err.status || 500).json({
     error: "에러 미들웨어에 오셨군요",
+    Error: err.message, // 배포 전에만 서버 에러 그대로 다 던져주고 배포 후 지우기!!!
   });
 });
 
