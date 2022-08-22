@@ -45,13 +45,17 @@ class UserService {
     return { result: true };
   };
 
-  deleteUser = async (nickname, password) => {
-    const user = await this.userRepository.findUserByNick(nickname);
+  deleteUser = async (userId, password) => {
+    const user = await this.userRepository.findUser(userId);
     const compareResult = await bcrypt.compare(password, user.password);
+    console.log("비번: " + password);
+    console.log("비교 비번: " + user.password);
+    console.log("비교 결과: " + compareResult);
+
     if (!compareResult) {
       return { result: false, error: "비밀번호를 다시 한 번 확인해주세요" };
     }
-    await this.userRepository.deleteUser(nickname);
+    await this.userRepository.deleteUser(userId);
     return { result: true };
   };
 }

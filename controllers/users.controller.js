@@ -41,10 +41,10 @@ class UserController {
   // 회원탈퇴 [DELETE] /user/delete
   deleteUser = async (req, res, next) => {
     try {
-      const { nickname } = res.locals.user;
+      const { userId } = res.locals.user;
       const { password } = req.body;
 
-      const deleteUser = await this.userService.deleteUser(nickname, password);
+      const deleteUser = await this.userService.deleteUser(userId, password);
 
       res.json(deleteUser);
     } catch (err) {
