@@ -46,11 +46,11 @@ class UserService {
   };
 
   deleteUser = async (userId, password) => {
+    if (!password) {
+      return { result: false, error: "비밀번호를 입력해주세요" };
+    }
     const user = await this.userRepository.findUser(userId);
     const compareResult = await bcrypt.compare(password, user.password);
-    console.log("비번: " + password);
-    console.log("비교 비번: " + user.password);
-    console.log("비교 결과: " + compareResult);
 
     if (!compareResult) {
       return { result: false, error: "비밀번호를 다시 한 번 확인해주세요" };

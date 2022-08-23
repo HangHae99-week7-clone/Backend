@@ -34,11 +34,20 @@ app.use("/api", rotuer);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+// 위의 라우터 말고 존재하지 않는 라우터 접근 시 에러
+app.use((req, res, next) => {
+  const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
+  error.status = 404;
+  next(error);
+});
+
 // error 미들웨어
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(err.status || 500).json({
     error: "에러 미들웨어에 오셨군요",
+    Error: err.message, // 배포 전에만 서버 에러 그대로 다 던져주고 배포 후 지우기!!!
   });
 });
 app.listen(port, () => {
