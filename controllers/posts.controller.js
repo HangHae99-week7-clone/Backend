@@ -45,10 +45,10 @@ class PostController {
       user.userId,
       message
     );
-    let arr_keyword = keyword.toString().split(" ");
-    let arr_roomtitle = roomtitle.toString().split(" ");
-    let arr_roomcharge = roomcharge.toString().split(" ");
-    let arr_roomimage = roomimage.toString().split(" ");
+    let arr_keyword = keyword.toString().split(",");
+    let arr_roomtitle = roomtitle.toString().split(",");
+    let arr_roomcharge = roomcharge.toString().split("");
+    let arr_roomimage = roomimage.toString().split(",");
 
     for (let i = 0; i < arr_keyword.length; i++) {
       const createKeyword = await Keyword.create({
