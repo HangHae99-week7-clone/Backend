@@ -23,9 +23,7 @@ class PostService {
         let arr_rating = [];
 
         const getPost = await this.postRepository.getPost(post.postId);
-        return {
-          getPost,
-        };
+        return getPost;
       })
     );
   };
