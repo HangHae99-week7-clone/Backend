@@ -10,7 +10,9 @@ class PostService {
 
   getAllPosts = async () => {
     const posts = await this.postRepository.getAllPosts();
-
+    posts.sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
     return Promise.all(
       posts.map(async (post) => {
         let arr_title = [];
@@ -19,43 +21,7 @@ class PostService {
         let arr_keyword = [];
         let arr_review = [];
         let arr_rating = [];
-        const keyword = await Keyword.findAll({
-          where: { postId: post.postId },
-        });
-        for (let i = 0; i < keyword.length; i++) {
-          arr_keyword.push(keyword[i].keyword);
-        }
-        /////
-        const roomtitle = await Roomtitle.findAll({
-          where: { postId: post.postId },
-        });
-        for (let i = 0; i < roomtitle.length; i++) {
-          arr_title.push(roomtitle[i].title);
-        }
-        /////
-        const roomcharge = await Roomcharge.findAll({
-          where: { postId: post.postId },
-        });
-        for (let i = 0; i < roomcharge.length; i++) {
-          arr_charge.push(roomcharge[i].charge);
-        }
-        const roomimage = await Roomimage.findAll({
-          where: { postId: post.postId },
-        });
-        for (let i = 0; i < roomimage.length; i++) {
-          arr_image.push(roomimage[i].image);
-        }
-        const review = await Post.findAll({
-          where: { postId: post.postId },
-          include: [{ model: Review }],
-        });
-        console.log("리뷰!", review.Reviews);
-        for (let i = 0; i < review.length; i++) {
-          arr_review.push(review[i].comment);
-        }
-        for (let i = 0; i < review.length; i++) {
-          arr_rating.push(review[i].rating);
-        }
+
         const getPost = await this.postRepository.getPost(post.postId);
         return {
           getPost,
