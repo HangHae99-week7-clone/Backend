@@ -1,12 +1,13 @@
-const Post = require("../models/post");
+const { Post, Review } = require("../models");
 const postRepository = require("../repositories/posts.repository");
 const { Keyword } = require("../models");
 const { Roomtitle } = require("../models");
 const { Roomcharge } = require("../models");
 const { Roomimage } = require("../models");
-const { Review } = require("../models");
+
 class PostService {
   postRepository = new postRepository();
+
   getAllPosts = async () => {
     const posts = await this.postRepository.getAllPosts();
 
@@ -17,6 +18,7 @@ class PostService {
         let arr_image = [];
         let arr_keyword = [];
         let arr_review = [];
+        let arr_rating = [];
         const keyword = await Keyword.findAll({
           where: { postId: post.postId },
         });
@@ -43,28 +45,20 @@ class PostService {
         for (let i = 0; i < roomimage.length; i++) {
           arr_image.push(roomimage[i].image);
         }
-        const review = await Review.findAll({
+        const review = await Post.findAll({
           where: { postId: post.postId },
+          include: [{ model: Review }],
         });
+        console.log("리뷰!", review.Reviews);
         for (let i = 0; i < review.length; i++) {
           arr_review.push(review[i].comment);
         }
-
-        console.log("키워드!!!", keyword);
+        for (let i = 0; i < review.length; i++) {
+          arr_rating.push(review[i].rating);
+        }
+        const getPost = await this.postRepository.getPost(post.postId);
         return {
-          postId: post.postId,
-          placename: post.placename,
-          email: post.email,
-          category: post.category,
-          charge: post.charge,
-          images: post.images,
-          location: post.location,
-          message: post.message,
-          keyword: arr_keyword,
-          roomtitle: arr_title,
-          roomcharge: arr_charge,
-          roomimage: arr_image,
-          review: arr_review,
+          getPost,
         };
       })
     );
