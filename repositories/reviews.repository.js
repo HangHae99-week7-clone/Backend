@@ -22,9 +22,9 @@ class ReviewRepository {
     return createReviewData;
   };
 
-  updateReview = async (reviewId, comment, rating) => {
+  updateReview = async (reviewId, nickname, comment, rating) => {
     const updateReviewData = await Review.update(
-      { comment, rating },
+      { nickname, comment, rating },
       { where: { reviewId } }
     );
     return updateReviewData;

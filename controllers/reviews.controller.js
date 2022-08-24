@@ -27,11 +27,12 @@ class ReviewController {
   updateReview = async (req, res, next) => {
     try {
       const { reviewId } = req.params;
-      const { userId } = res.locals.user;
+      const { userId, nickname } = res.locals.user;
       const { comment, rating } = req.body;
       const updateReview = await this.reviewService.updateReview(
         reviewId,
         userId,
+        nickname,
         comment,
         rating
       );
