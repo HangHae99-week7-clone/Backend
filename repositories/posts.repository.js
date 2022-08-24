@@ -88,11 +88,10 @@ class postRepository {
     charge,
     content,
     images,
-    location,
-    message
+    location
   ) => {
     const post = await Post.update(
-      { placename, category, charge, content, images, location, message },
+      { placename, category, charge, content, images, location },
       { where: { postId } }
     );
 

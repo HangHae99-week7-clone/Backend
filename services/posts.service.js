@@ -69,7 +69,6 @@ class PostService {
     const post = await this.postRepository.updatePost(
       postId,
       placename,
-      postId,
       category,
       charge,
       content,

@@ -106,14 +106,10 @@ class PostController {
       content,
       images,
       location,
-      message,
-      keyword,
-      roomtitle,
-      roomcharge,
-      roomimage
+      message
     );
     if (keyword) {
-      let arr_word = keyword.toString().split(" ");
+      let arr_word = keyword.toString().split(",");
       for (let i = 0; i < arr_word.length; i++) {
         const updateKeyword = await Keyword.destroy({
           where: { postId: postId },
@@ -127,7 +123,7 @@ class PostController {
       }
     }
     if (roomtitle) {
-      let arr_roomtitle = roomtitle.toString().split(" ");
+      let arr_roomtitle = roomtitle.toString().split(",");
       for (let i = 0; i < arr_roomtitle.length; i++) {
         const updateRoomtitle = await Roomtitle.destroy({
           where: { postId: postId },
@@ -141,7 +137,7 @@ class PostController {
       }
     }
     if (roomcharge) {
-      let arr_roomcharge = roomcharge.toString().split(" ");
+      let arr_roomcharge = roomcharge.toString().split(",");
       for (let i = 0; i < arr_roomcharge.length; i++) {
         const updateRoomcharge = await Roomcharge.destroy({
           where: { postId: postId },
@@ -155,7 +151,7 @@ class PostController {
       }
     }
     if (roomimage) {
-      let arr_roomimage = roomimage.toString().split(" ");
+      let arr_roomimage = roomimage.toString().split(",");
       for (let i = 0; i < arr_roomimage.length; i++) {
         const updateRoomimage = await Roomimage.destroy({
           where: { postId: postId },
