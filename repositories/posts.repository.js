@@ -6,6 +6,9 @@ const { Roomimage } = require("../models");
 class postRepository {
   getAllPosts = async () => {
     const posts = await Post.findAll();
+    posts.sort((a, b) => {
+      return b.createdAt - a.createdAt;
+    });
     return posts;
   };
 
