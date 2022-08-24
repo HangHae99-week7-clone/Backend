@@ -14,6 +14,7 @@ class postRepository {
       where: { postId },
       include: [{ model: Review }],
     });
+    console.log("리뷰@@", post.Reviews);
     const roomtitle = await Roomtitle.findAll({ where: { postId } });
     const roomcharge = await Roomcharge.findAll({ where: { postId } });
     const roomimage = await Roomimage.findAll({ where: { postId } });
