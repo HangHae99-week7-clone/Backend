@@ -25,7 +25,6 @@ app.use(
     credentials: true,
 
     origin: "https://whatabouthere.vercel.app",
-    origin: "http://localhost:3000",
   })
 );
 
