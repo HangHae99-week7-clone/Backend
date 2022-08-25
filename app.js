@@ -20,6 +20,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(morgan("dev"));
 }
 
+app.use(
+  cors({
+    credentials: true,
+
+    origin: "https://whatabouthere.vercel.app",
+  })
+);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // body로 들어오는 json 형태의 데이터를 파싱해준다.
 app.use("/api", rotuer);
