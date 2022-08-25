@@ -57,23 +57,35 @@ module.exports = class Post extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Post.hasMany(db.Review, { foreignKey: "postId", sourceKey: "postId" });
-    db.Post.hasMany(db.Keyword, { foreignKey: "postId", sourceKey: "postId" });
+    db.Post.hasMany(db.Review, {
+      foreignKey: "postId",
+      sourceKey: "postId",
+      onDelete: "CASCADE",
+    });
+    db.Post.hasMany(db.Keyword, {
+      foreignKey: "postId",
+      sourceKey: "postId",
+      onDelete: "CASCADE",
+    });
     db.Post.hasMany(db.Roomtitle, {
       foreignKey: "postId",
       sourceKey: "postId",
+      onDelete: "CASCADE",
     });
     db.Post.hasMany(db.Roomcharge, {
       foreignKey: "postId",
       sourceKey: "postId",
+      onDelete: "CASCADE",
     });
     db.Post.hasMany(db.Roomimage, {
       foreignKey: "postId",
       sourceKey: "postId",
+      onDelete: "CASCADE",
     });
     db.Post.belongsTo(db.User, {
       foreignKey: "userId",
       targetKey: "userId",
+      onDelete: "CASCADE",
       onDelete: "CASCADE",
     });
   }
