@@ -20,6 +20,7 @@ class LoginService {
         return {
           result: true,
           token,
+          userId: user.userId,
           email: user.email,
           nickname: user.nickname,
         };
