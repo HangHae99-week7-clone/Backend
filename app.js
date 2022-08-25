@@ -22,10 +22,9 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    credentials: include,
+    credentials: true,
 
     origin: "https://whatabouthere.vercel.app",
-    origin: "http://localhost:3000",
   })
 );
 
