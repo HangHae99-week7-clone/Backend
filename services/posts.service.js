@@ -29,6 +29,7 @@ class PostService {
     placename,
     category,
     content,
+
     charge,
     location,
     images,
