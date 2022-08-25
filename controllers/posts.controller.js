@@ -38,6 +38,7 @@ class PostController {
       placename,
       category,
       content,
+      message,
       charge,
       location,
       images,

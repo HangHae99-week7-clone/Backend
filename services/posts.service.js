@@ -15,13 +15,6 @@ class PostService {
     });
     return Promise.all(
       posts.map(async (post) => {
-        let arr_title = [];
-        let arr_charge = [];
-        let arr_image = [];
-        let arr_keyword = [];
-        let arr_review = [];
-        let arr_rating = [];
-
         const getPost = await this.postRepository.getPost(post.postId);
         return getPost;
       })
