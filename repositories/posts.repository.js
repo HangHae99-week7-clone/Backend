@@ -38,6 +38,7 @@ class postRepository {
 
     return {
       postId: post.postId,
+      userId: post.userId,
       placename: post.placename,
       email: post.email,
       category: post.category,
